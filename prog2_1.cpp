@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
         getline(cin, input);
 
         while(input.length() > CONSTRAINT) {
-            cout << "ERROR. Input string too long.\n> ";
+            cout << "ERROR! Input string too long.\n> ";
             getline(cin, input);
             argCount++;
         }
