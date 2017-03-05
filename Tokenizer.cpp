@@ -53,6 +53,10 @@ string* GetTokens() {
         exit(0);
     }
 
+    if(count == 1) {
+        tokenized[1] = "";
+    }
+
     if(count > 2) {
         cout << "ERROR! Incorrect number of tokens found.\n";
         tokenized[2] = "";

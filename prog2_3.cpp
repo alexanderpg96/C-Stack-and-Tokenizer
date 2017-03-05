@@ -8,13 +8,14 @@
 using namespace std;
 
 bool isInt(string s);
-void simplify(int c);
+int toInt(string s);
+void simplify();
 bool checkOutput(int c);
 string* GetTokens();
 
 const int CONSTRAINT = 65;
 string * tokens;
-string pushTok[16];
+string pushTok[3];
 
 int main(int argc, char **argv) {
 
@@ -46,15 +47,15 @@ int main(int argc, char **argv) {
         cout << "> ";
 
         tokens = GetTokens();
-        pushTok = tokens;
 
         while((tokens[0].length() + tokens[1].length()) > CONSTRAINT) {
             cout << "ERROR! Input string too long.\n> ";
             tokens = GetTokens();
-            pushTok = tokens;
             argCount++;
         }
-    
+
+        simplify();
+
         if(tokens[1].length() == 0) {
             count = 1;
         }
@@ -62,33 +63,34 @@ int main(int argc, char **argv) {
             count = 2;
         }
 
-        simplify(count);
-
         check = checkOutput(count);
 
         while(!check) {
             tokens = GetTokens();
-            pushTok = tokens;
-            if(tokens[1].length() == 0) {
+            if(pushTok[1].length() == 0) {
                 count = 1;
             }
             else {
                 count = 2;
             }
 
-            simplify(count);
+            simplify();
             check = checkOutput(count);
             argCount++;
+
+            if(argCount == numArgs) {
+                exit(0);
+            }
         }
 
-        if(tokens[1].length() == 0) {
-            if(pushTok[0].compare("pop") == 0) {            
+        if(pushTok[1].length() == 0) {
+            if(tokens[0].compare("pop") == 0) {          
                 s.Pop();
             }
         }
         else {
-            if((pushTok[0].compare("push") == 0) && isInt(pushTok[1])) {
-                s.Push(atoi(pushTok[1].c_str()));
+            if((tokens[0].compare("push") == 0) && isInt(tokens[1])) {
+                s.Push(toInt(tokens[1]));
             }
         }
 
@@ -99,16 +101,20 @@ int main(int argc, char **argv) {
     s.Print();
 }
 
-void simplify(int c) {
+void simplify() {
     int index = 0;
+    int c = 2;
 
     while(index < c) {
         if(isInt(tokens[index])) {
-           tokens[index] = "INT ";
+           pushTok[index] = "INT ";
            index++; 
         }
+        else if(tokens[index].length() == 0) {
+            pushTok[index] = "";
+        }
         else {
-            tokens[index] = "STR ";
+            pushTok[index] = "STR ";
             index++;
         }
     }
@@ -116,7 +122,7 @@ void simplify(int c) {
 
 bool checkOutput(int c) {
     if(c == 2) {
-        if((tokens[0].compare("STR ") == 0) && (tokens[1].compare("INT ") == 0)) {
+        if((pushTok[0].compare("STR ") == 0) && (pushTok[1].compare("INT ") == 0)) {
             return true;
         }
         else {
@@ -126,14 +132,20 @@ bool checkOutput(int c) {
         }
     }
     else if(c == 1) {
-        if(tokens[0].compare("STR ") == 0) {
-            tokens[1] = "";
+        if(pushTok[0].compare("STR ") == 0) {
+            pushTok[1] = "";
             return true;
         }
         else {
             cout << "ERROR! Expected STR.\n> ";
-            tokens[1] = "";
+            pushTok[1] = "";
             return false;
         }
     }
+}
+
+int toInt(string s) {
+    int numb;
+    istringstream ( s ) >> numb;
+    return numb;
 }
