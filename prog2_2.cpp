@@ -6,7 +6,7 @@
 
 using namespace std;
 
-bool isInt(string s);
+bool isInteger(string s);
 void simplify(int c);
 bool checkOutput(int c);
 string* GetTokens();
@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    if(!isInt(argv[1])) {
+    if(!isInteger(argv[1])) {
         cout << "ERROR! Expected integer argument.\n";
         return 0;
     }
@@ -88,11 +88,15 @@ int main(int argc, char **argv) {
     }
 }
 
+bool isInteger(string s){
+  return s.find_first_not_of( "0123456789" ) == string::npos;
+}
+
 void simplify(int c) {
     int index = 0;
 
     while(index < c) {
-        if(isInt(tokens[index])) {
+        if(isInteger(tokens[index])) {
             tokens[index] = "INT ";
             index++;
         }
