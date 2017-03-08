@@ -57,9 +57,18 @@ string* GetTokens() {
         tokenized[1] = "";
     }
 
-    if(count > 2) {
-        cout << "ERROR! Incorrect number of tokens found.\n";
-        tokenized[2] = "";
+    while(count > 2) {
+        cout << "ERROR! Incorrect number of tokens found.\n> ";
+        getline(cin, input);
+        count = tokenize(input);
+    
+        if(isQuit(count)) {
+            exit(0);
+        }
+
+        if(isQuit(count)) {
+            exit(0);
+        }
     }
 
     return tokenized;

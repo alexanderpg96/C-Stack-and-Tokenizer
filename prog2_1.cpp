@@ -164,7 +164,7 @@ bool checkOutput(string o, int c) {
         return true;
     }
     else if(c == 2) {
-        cout << "ERROR! Epected STR INT.\n> ";
+        cout << "ERROR! Expected STR INT.\n> ";
         return false;
     }
     else {
