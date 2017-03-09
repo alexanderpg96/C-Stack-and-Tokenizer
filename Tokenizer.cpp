@@ -11,11 +11,11 @@ using namespace std;
 
 string tokenized[16];
 
-bool isInt(string s){
+bool Tokenizer::isInt(string s){
   return s.find_first_not_of( "0123456789" ) == string::npos;
 }
 
-int tokenize(string in) {
+int Tokenizer::tokenize(string in) {
     int count = 0;
     string token;
 
@@ -28,7 +28,7 @@ int tokenize(string in) {
     return count;
 }
 
-bool isQuit(int c) {
+bool Tokenizer::isQuit(int c) {
     if(c == 1) {
         string isit = tokenized[0];
         transform(isit.begin(), isit.end(), isit.begin(), ::tolower);
@@ -41,7 +41,7 @@ bool isQuit(int c) {
     return false;
 }
 
-string* GetTokens() {
+string* Tokenizer::GetTokens() {
     string input;
     int count;
 

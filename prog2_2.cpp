@@ -44,10 +44,10 @@ int main(int argc, char **argv) {
 
         tokens = GetTokens();
 
+        // Change to go into tokenizer
         while((tokens[0].length() + tokens[1].length()) > CONSTRAINT) {
             cout << "ERROR! Input string too long.\n> ";
             tokens = GetTokens();
-            argCount++;
         }
     
         if(tokens[1].length() == 0) {
@@ -72,7 +72,6 @@ int main(int argc, char **argv) {
 
             simplify(count);
             check = checkOutput(count);
-            argCount++;
         }
 
         if(tokens[1].length() == 0) {
