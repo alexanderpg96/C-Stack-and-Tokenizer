@@ -10,6 +10,7 @@
 using namespace std;
 
 string tokenized[16];
+string * tokens;
 
 bool Tokenizer::isInt(string s){
   return s.find_first_not_of( "0123456789" ) == string::npos;
@@ -41,9 +42,49 @@ bool Tokenizer::isQuit(int c) {
     return false;
 }
 
+void Tokenizer::simplify(int c) {
+    int index = 0;
+
+    while(index < c) {
+        if(isInt(tokens[index])) {
+            tokens[index] = "INT ";
+            index++;
+        }
+        else {
+            tokens[index] = "STR ";
+            index++;
+        }
+    }
+}
+
+bool Tokenizer::checkOutput(int c) {
+    if(c == 2) {
+        if((tokens[0].compare("STR ") == 0) && (tokens[1].compare("INT ") == 0)) {
+            return true;
+        }
+        else {
+            cout << "ERROR! Expected STR INT.\n> ";
+            tokens[1] = "";
+            return false;
+        }
+    }
+    else if(c == 1) {
+        if(tokens[0].compare("STR ") == 0) {
+            tokens[1] = "";
+            return true;
+        }
+        else {
+            cout << "ERROR! Expected STR.\n> ";
+            tokens[1] = "";
+            return false;
+        }
+    }
+}
+
 string* Tokenizer::GetTokens() {
     string input;
     int count;
+    bool check;
 
     getline(cin, input);
 
@@ -69,6 +110,43 @@ string* Tokenizer::GetTokens() {
         if(isQuit(count)) {
             exit(0);
         }
+    }
+
+    simplify(count);
+
+    check = checkOutput(count);
+
+    while(!check) {
+        getline(cin, input);
+
+        count = tokenize(input);
+
+        if(isQuit(count)) {
+            exit(0);
+        }
+
+        if(count == 1) {
+            tokenized[1] = "";
+        }
+
+        while(count > 2) {
+            cout << "ERROR! Incorrect number of tokens found.\n> ";
+            getline(cin, input);
+            count = tokenize(input);
+        
+            if(isQuit(count)) {
+                exit(0);
+            }
+
+            if(isQuit(count)) {
+                exit(0);
+            }
+        }
+            
+            
+
+        simplify(count);
+        check = checkOutput(count);
     }
 
     return tokenized;

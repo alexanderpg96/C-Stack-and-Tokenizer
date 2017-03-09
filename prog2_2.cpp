@@ -7,18 +7,12 @@
 using namespace std;
 
 bool isInteger(string s);
-void simplify(int c);
-bool checkOutput(int c);
 string* GetTokens();
 
 const int CONSTRAINT = 65;
-string * tokens;
+string * t;
 
 int main(int argc, char **argv) {
-
-    bool check;
-
-    int count;
 
     cout << "Assignment #2-2, Alexander Pearson-Goulart, pearsongoulart@gmail.com\n";
 
@@ -42,43 +36,20 @@ int main(int argc, char **argv) {
 
         cout << "> ";
 
-        tokens = GetTokens();
+        t = GetTokens();
 
         // Change to go into tokenizer
-        while((tokens[0].length() + tokens[1].length()) > CONSTRAINT) {
-            cout << "ERROR! Input string too long.\n> ";
-            tokens = GetTokens();
-        }
+        //while((tokens[0].length() + tokens[1].length()) > CONSTRAINT) {
+          //  cout << "ERROR! Input string too long.\n> ";
+            //tokens = GetTokens();
+        //}
     
-        if(tokens[1].length() == 0) {
-            count = 1;
+
+        if(t[1].length() == 0) {
+            cout << t[0];
         }
         else {
-            count = 2;
-        }
-
-        simplify(count);
-
-        check = checkOutput(count);
-
-        while(!check) {
-            tokens = GetTokens();
-            if(tokens[1].length() == 0) {
-                count = 1;
-            }
-            else {
-                count = 2;
-            }
-
-            simplify(count);
-            check = checkOutput(count);
-        }
-
-        if(tokens[1].length() == 0) {
-            cout << tokens[0];
-        }
-        else {
-            cout << tokens[0] << tokens[1];
+            cout << t[0] << t[1];
         }
 
         cout << "\n";
@@ -91,41 +62,4 @@ bool isInteger(string s){
   return s.find_first_not_of( "0123456789" ) == string::npos;
 }
 
-void simplify(int c) {
-    int index = 0;
 
-    while(index < c) {
-        if(isInteger(tokens[index])) {
-            tokens[index] = "INT ";
-            index++;
-        }
-        else {
-            tokens[index] = "STR ";
-            index++;
-        }
-    }
-}
-
-bool checkOutput(int c) {
-    if(c == 2) {
-        if((tokens[0].compare("STR ") == 0) && (tokens[1].compare("INT ") == 0)) {
-            return true;
-        }
-        else {
-            cout << "ERROR! Expected STR INT.\n> ";
-            tokens[1] = "";
-            return false;
-        }
-    }
-    else if(c == 1) {
-        if(tokens[0].compare("STR ") == 0) {
-            tokens[1] = "";
-            return true;
-        }
-        else {
-            cout << "ERROR! Expected STR.\n> ";
-            tokens[1] = "";
-            return false;
-        }
-    }
-}
