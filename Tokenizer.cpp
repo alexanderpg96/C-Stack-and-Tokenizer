@@ -142,6 +142,7 @@ string* Tokenizer::GetTokens() {
                 exit(0);
             }
         }
+    }
             
             
 
