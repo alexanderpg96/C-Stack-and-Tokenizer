@@ -7,11 +7,11 @@
 
 using namespace std;
 
-bool isInt(string s);
+bool Tokenizer::isInt(string s);
 int toInt(string s);
 void simplify();
 bool checkOutput(int c);
-string* GetTokens();
+string* Tokenizer::GetTokens();
 
 const int CONSTRAINT = 65;
 string * tokens;
@@ -46,12 +46,12 @@ int main(int argc, char **argv) {
 
         cout << "> ";
 
-        tokens = GetTokens();
+        tokens = Tokenizer::GetTokens();
 
+        //Put in Tokenizer
         while((tokens[0].length() + tokens[1].length()) > CONSTRAINT) {
             cout << "ERROR! Input string too long.\n> ";
-            tokens = GetTokens();
-            argCount++;
+            tokens = Tokenizer::GetTokens();
         }
 
         simplify();
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
         check = checkOutput(count);
 
         while(!check) {
-            tokens = GetTokens();
+            tokens = Tokenizer::GetTokens();
             if(pushTok[1].length() == 0) {
                 count = 1;
             }
@@ -76,7 +76,6 @@ int main(int argc, char **argv) {
 
             simplify();
             check = checkOutput(count);
-            argCount++;
 
             if(argCount == numArgs) {
                 exit(0);
@@ -106,7 +105,7 @@ void simplify() {
     int c = 2;
 
     while(index < c) {
-        if(isInt(tokens[index])) {
+        if(Tokenizer::isInt(tokens[index])) {
            pushTok[index] = "INT ";
            index++; 
         }
