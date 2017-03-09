@@ -10,7 +10,7 @@
 using namespace std;
 
 string tokenized[16];
-string * tokens;
+string tokens[2];
 
 bool Tokenizer::isInt(string s){
   return s.find_first_not_of( "0123456789" ) == string::npos;
@@ -59,7 +59,8 @@ void Tokenizer::simplify(int c) {
 
 bool Tokenizer::checkOutput(int c) {
     if(c == 2) {
-        if((tokens[0].compare("STR ") == 0) && (tokens[1].compare("INT ") == 0)) {
+        if((tokens[0].compare("STR ") == 0) && (tokens[1].compare("INT ") == 0)) 
+        {            
             return true;
         }
         else {
@@ -100,13 +101,10 @@ string* Tokenizer::GetTokens() {
 
     while(count > 2) {
         cout << "ERROR! Incorrect number of tokens found.\n> ";
+        std::fill_n(tokenized, 16, 0);
         getline(cin, input);
         count = tokenize(input);
     
-        if(isQuit(count)) {
-            exit(0);
-        }
-
         if(isQuit(count)) {
             exit(0);
         }
