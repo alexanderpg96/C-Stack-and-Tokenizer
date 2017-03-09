@@ -141,10 +141,7 @@ string* Tokenizer::GetTokens() {
             if(isQuit(count)) {
                 exit(0);
             }
-        }
-    }
-            
-            
+        }      
 
         simplify(count);
         check = checkOutput(count);
