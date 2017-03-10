@@ -4,12 +4,13 @@
 #include <string>
 #include <sstream>
 #include <stdlib.h>
+#include <algorithm>
 
 using namespace std;
 
 int toInteger(string s);
-bool isInt(string s);
-string* GetTokens();
+bool isInteger(string s);
+//string* GetTokens();
 
 string * t;
 string pushTok[3];
@@ -17,6 +18,7 @@ string pushTok[3];
 int main(int argc, char **argv) {
 
     Stack s;
+    Tokenizer tok;
 
     cout << "Assignment #2-3, Alexander Pearson-Goulart, pearsongoulart@gmail.com\n";
 
@@ -25,7 +27,7 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    if(!isInt(argv[1])) {
+    if(!isInteger(argv[1])) {
         cout << "ERROR! Expected integer argument.\n";
         return 0;
     }
@@ -38,23 +40,27 @@ int main(int argc, char **argv) {
     
     while(argCount < numArgs) {
 
-        cout << "> ";
+        t = tok.GetTokens();
 
-        t = GetTokens();
+        if(t[1].length() == 0) {
 
-        //Put in Tokenizer
-        //while((to[0].length() + tokens[1].length()) > CONSTRAINT) {
-          //  cout << "ERROR! Input string too long.\n> ";
-            //tokens = Tokenizer::GetTokens();
-        //}
+            string isit = t[0];
 
-        if(pushTok[1].length() == 0) {
+            transform(isit.begin(), isit.end(), isit.begin(), ::tolower);
+
+            if(isit.compare("quit") == 0) {
+                exit(0);
+            }
+
+        }
+
+        if(t[1].length() == 0) {
             if(t[0].compare("pop") == 0) {          
                 s.Pop();
             }
         }
         else {
-            if((t[0].compare("push") == 0) && isInt(t[1])) {
+            if((t[0].compare("push") == 0) && isInteger(t[1])) {
                 s.Push(toInteger(t[1]));
             }
         }
@@ -70,4 +76,8 @@ int toInteger(string s) {
     int numb;
     istringstream ( s ) >> numb;
     return numb;
+}
+
+bool isInteger(string s){
+  return s.find_first_not_of( "0123456789" ) == string::npos;
 }

@@ -26,6 +26,10 @@ int Tokenizer::tokenize(string in) {
         c++;
     } 
 
+    if(c == 1) {
+        tokenized[1] = "";
+    }
+
     return c;
 }
 
@@ -72,6 +76,7 @@ bool Tokenizer::checkOutput(int c) {
     else if(c == 1) {
         if(tokens[0].compare("STR ") == 0) {
             tokens[1] = "";
+            tokenized[1] = "";
             return true;
         }
         else {

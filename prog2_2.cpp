@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <algorithm>
+
 
 using namespace std;
 
@@ -11,8 +13,11 @@ string* GetTokens();
 
 const int CONSTRAINT = 65;
 string * t;
+string * toks;
 
 int main(int argc, char **argv) {
+
+    Tokenizer tok;
 
     cout << "Assignment #2-2, Alexander Pearson-Goulart, pearsongoulart@gmail.com\n";
 
@@ -34,22 +39,25 @@ int main(int argc, char **argv) {
     
     while(argCount < numArgs) {
 
-        cout << "> ";
-
-        t = GetTokens();
-
-        // Change to go into tokenizer
-        //while((tokens[0].length() + tokens[1].length()) > CONSTRAINT) {
-          //  cout << "ERROR! Input string too long.\n> ";
-            //tokens = GetTokens();
-        //}
-    
+        t = tok.GetTokens();
 
         if(t[1].length() == 0) {
-            cout << t[0];
+
+            string isit = t[0];
+
+            transform(isit.begin(), isit.end(), isit.begin(), ::tolower);
+
+            if(isit.compare("quit") == 0) {
+                exit(0);
+            }
+
+        }
+
+        if(t[1].length() == 0) {
+            cout << "STR ";
         }
         else {
-            cout << t[0] << t[1];
+            cout << "STR " << "INT ";
         }
 
         cout << "\n";
