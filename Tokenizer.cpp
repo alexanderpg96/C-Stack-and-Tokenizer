@@ -93,10 +93,6 @@ string* Tokenizer::GetTokens() {
 
     count = tokenize(input);
 
-    if(isQuit(count)) {
-        exit(0);
-    }
-
     if(count == 1) {
         tokenized[1] = "";
     }
@@ -105,10 +101,6 @@ string* Tokenizer::GetTokens() {
         cout << "ERROR! Incorrect number of tokens found.\n> ";
         getline(cin, input);
         count = tokenize(input);
-    }
-
-    if(isQuit(count)) {
-        exit(0);
     }
 
     simplify(count);
@@ -120,10 +112,6 @@ string* Tokenizer::GetTokens() {
 
         count = tokenize(input);
 
-        if(isQuit(count)) {
-            exit(0);
-        }
-
         if(count == 1) {
             tokenized[1] = "";
         }
@@ -132,10 +120,6 @@ string* Tokenizer::GetTokens() {
             cout << "ERROR! Incorrect number of tokens found.\n> ";
             getline(cin, input);
             count = tokenize(input);
-        }  
-
-        if(isQuit(count)) {
-            exit(0);
         }    
 
         simplify(count);
