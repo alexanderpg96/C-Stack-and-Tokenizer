@@ -46,7 +46,7 @@ void Tokenizer::simplify(int c) {
     int index = 0;
 
     while(index < c) {
-        if(!isInt(tokens[index])) {
+        if(isInt(tokenized[index])) {
             tokens[index] = "INT ";
             index++;
         }
