@@ -17,16 +17,16 @@ bool Tokenizer::isInt(string s){
 }
 
 int Tokenizer::tokenize(string in) {
-    int count = 0;
+    int c = 0;
     string token;
 
     stringstream s(in);
     while(s >> token) {
-        tokenized[count] = token;
-        count++;
+        tokenized[c] = token;
+        c++;
     } 
 
-    return count;
+    return c;
 }
 
 bool Tokenizer::isQuit(int c) {
@@ -87,6 +87,8 @@ string* Tokenizer::GetTokens() {
     int count;
     bool check;
 
+    cout << "> ";
+
     getline(cin, input);
 
     count = tokenize(input);
@@ -101,13 +103,12 @@ string* Tokenizer::GetTokens() {
 
     while(count > 2) {
         cout << "ERROR! Incorrect number of tokens found.\n> ";
-        std::fill_n(tokenized, 16, 0);
         getline(cin, input);
         count = tokenize(input);
-    
-        if(isQuit(count)) {
-            exit(0);
-        }
+    }
+
+    if(isQuit(count)) {
+        exit(0);
     }
 
     simplify(count);
@@ -131,15 +132,11 @@ string* Tokenizer::GetTokens() {
             cout << "ERROR! Incorrect number of tokens found.\n> ";
             getline(cin, input);
             count = tokenize(input);
-        
-            if(isQuit(count)) {
-                exit(0);
-            }
+        }  
 
-            if(isQuit(count)) {
-                exit(0);
-            }
-        }      
+        if(isQuit(count)) {
+            exit(0);
+        }    
 
         simplify(count);
         check = checkOutput(count);
